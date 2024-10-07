@@ -11,7 +11,9 @@ func Index(c *fiber.Ctx) error {
 
 	var quiz []models.Quiztiga
 
-	models.DB.Db.Find(&quiz)
+	if err := models.DB.Db.Order("RANDOM()").Limit(2).Find(&quiz).Error; err != nil {
+		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": "Failed to fetch records"})
+	}
 
 	return c.Status(fiber.StatusOK).JSON(quiz)
 }
