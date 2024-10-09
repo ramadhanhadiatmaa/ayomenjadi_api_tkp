@@ -7,14 +7,14 @@ COPY . .
 
 RUN go mod download
 
-RUN CGO_ENABLED=0 go build -o amquiztiga
+RUN CGO_ENABLED=0 go build -o amtkp
 
 FROM alpine:latest
 
 WORKDIR /app
 
-COPY --from=build /app/amquiztiga .
+COPY --from=build /app/amtkp .
 
 EXPOSE 8453
 
-CMD [ "./amquiztiga" ]
+CMD [ "./amtkp" ]
